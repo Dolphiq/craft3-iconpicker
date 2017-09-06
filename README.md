@@ -6,7 +6,7 @@ You can easily use ionicons or font awesome icons
 ## Installation
 1. Install with Composer
     
-       composer require dolphiq/craft3-iconpicker
+       composer require dolphiq/iconpicker
        
 2. Install plugin in the Craft Control Panel under Settings > Plugins
 
@@ -14,7 +14,10 @@ You can easily use ionicons or font awesome icons
         
         {% do view.registerAssetBundle("plugins\\dolphiq\\iconpicker\\assets\\sharedAsset") %}
         
-4. Add the fonts you want to the directory `resources-shared/fonts` within the plugin directory (this will change later)
+4. Add the fonts you want to the following directory 
+        
+        /vendor/dolphiq/iconpicker/src/resources-shared/fonts
+               
 5. The `Iconpicker Field` type will be available when adding a new field - Settings > Fields > Add new field
 
 ## Creating a field with the iconpicker field type
