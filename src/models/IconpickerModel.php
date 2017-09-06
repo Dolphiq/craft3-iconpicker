@@ -47,7 +47,11 @@ class IconpickerModel extends Model{
     }
 
     public function getIconSpan(){
-        return '<span class="dq-icon-'.$this->iconFont.'"">'.$this->getIconCharHex().'</span>';
+        return '<span class="'.$this->getIconClass().'">'.$this->getIconCharHex().'</span>';
+    }
+
+    public function getIconClass(){
+        return 'dq-icon-'.$this->iconFont;
     }
 
 }
