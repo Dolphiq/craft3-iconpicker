@@ -1,0 +1,43 @@
+{
+  "name": "dolphiq/iconpicker",
+  "description": "Iconpicker",
+  "version": "1.0.0",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "craft-plugin",
+    "icon",
+    "iconpicker",
+    "craft3"
+  ],
+  "type": "craft-plugin",
+  "license": "MIT",
+  "require": {
+    "craftcms/cms": "^3.0.0-beta.10",
+    "phenx/php-font-lib": "^0.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "plugins\\dolphiq\\iconpicker\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Dolphiq",
+      "email": "info@dolphiq.nl",
+      "homepage": "https://dolphiq.nl/"
+    }
+  ],
+  "extra": {
+    "handle": "dolphiq-iconpicker",
+    "name": "Iconpicker",
+    "schemaVersion": "1.0.0",
+    "developer": "Dolphiq",
+    "developerUrl": "https://dolphiq.nl/",
+    "hasCpSettings": false,
+    "hasCpSection": false,
+    "documentationUrl": "https://github.com/Dolphiq/craft3-iconpicker/blob/master/README.md",
+    "changelogUrl": "https://raw.githubusercontent.com/Dolphiq/craft3-iconpicker/master/CHANGELOG.md"
+  }
+}

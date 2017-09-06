@@ -1,0 +1,22 @@
+.dolphiq-iconpicker span{
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: 10px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dolphiq-iconpicker--empty{
+    display: none;
+}
+
+.dolphiq-iconpicker .iconpicker-preview{
+    cursor: default;
+}
+
+.dolphiq-iconpicker span.iconpicker--selected{
+    color: #da5a47;
+}

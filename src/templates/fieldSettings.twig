@@ -1,0 +1,17 @@
+{% import "_includes/forms" as forms %}
+
+{% if fonts|length > 0 %}
+
+{{ forms.selectField({
+    label: "Iconpicker Font"|t('app'),
+    id: 'dolphiq-iconpicker-font',
+    name: 'iconFont',
+    options: fonts,
+    value: field.iconFont,
+}) }}
+
+{% else %}
+
+    <p>You need to put at least one font in the plugins font directory. (src/resources-shared/fonts)</p>
+
+{% endif %}
