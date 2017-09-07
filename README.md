@@ -60,9 +60,15 @@ Display an icon with a custom class:
        
        {{ entry.fieldName.iconClass }}
          
-7. fe  Get the icon name 
+7. Get the icon name 
        
        {{ entry.fieldName.iconName }}
+       
+8. Conditional example of showing icon only when it is set
+
+       {% if entry.fieldName.icon %}
+            {{ entry.fieldName.iconSpan|raw }}
+       {% endif %}
 
 
 ### Contributors & Developers
