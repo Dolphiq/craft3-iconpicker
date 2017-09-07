@@ -46,15 +46,15 @@ Display an icon with a custom class:
        
 3. Display the icon as html character `&#00000`
 
-       {{ entry.fieldName.iconChar }}
+       {{ entry.fieldName.iconChar|raw }}
        
 4. Display the icon as html character hex `&#xf100` 
 
-       {{ entry.fieldName.iconCharHex }}
+       {{ entry.fieldName.iconCharHex|raw }}
        
 5. Display the icon as span with character and font class 
 
-       {{ entry.fieldName.iconSpan }}
+       {{ entry.fieldName.iconSpan|raw }}
        
 6. Get the icon font class 
        
