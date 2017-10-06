@@ -13,8 +13,7 @@
 
 $field->getFontCss();
 
-if(count($icons) > 0) {
-
+if (count($icons) > 0) {
     ?>
 
 
@@ -45,8 +44,7 @@ if(count($icons) > 0) {
                   }
               } else {
                   echo 'No icons found in the selected font';
-              }
-              ?>
+              } ?>
           </div>
         </div>
       </div>
@@ -61,6 +59,9 @@ if(count($icons) > 0) {
     <div class="resizehandle"></div>
   </div>
 
-<?php } else { ?>
+<?php
+} else {
+                  ?>
     <p>There is no font uploaded to the font folder of this plugin, no font selected in the field settings, or the font contains no icons</p>
-<?php } ?>
+<?php
+              } ?>

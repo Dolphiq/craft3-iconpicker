@@ -18,17 +18,13 @@ use yii\web\View;
 
 class Plugin extends \craft\base\Plugin
 {
-
     public function init()
     {
         parent::init();
 
         // Register field type
-        Event::on(Fields::class, Fields::EVENT_REGISTER_FIELD_TYPES, function(RegisterComponentTypesEvent $event) {
-          $event->types[] = Iconpicker::class;
+        Event::on(Fields::class, Fields::EVENT_REGISTER_FIELD_TYPES, function (RegisterComponentTypesEvent $event) {
+            $event->types[] = Iconpicker::class;
         });
     }
-
 }
-
-?>
