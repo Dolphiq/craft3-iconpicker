@@ -3,6 +3,14 @@
 Craft plugin that provides a new field type that offers users an easy way to pick an icon from a .woff or .ttf font file.
 You can easily use ionicons or font awesome icons
 
+## Example
+
+### Example of the field usage in the template for a cms user
+![Screenshot](resources/screenshots/field_example.png)
+
+### Example of the selection popup
+![Screenshot](resources/screenshots/popup_example.png)
+
 ## Installation
 1. Install with Composer
     
