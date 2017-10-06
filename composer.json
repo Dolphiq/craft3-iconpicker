@@ -1,7 +1,7 @@
 {
   "name": "dolphiq/iconpicker",
-  "description": "Iconpicker",
-  "version": "1.0.2",
+  "description": "Craft Iconpicker plugin provides a new field type that offers users an easy way to pick an icon from a .woff or .ttf font file.",
+  "version": "1.0.3",
   "keywords": [
     "craft",
     "cms",
@@ -14,7 +14,7 @@
   "type": "craft-plugin",
   "license": "MIT",
   "require": {
-    "craftcms/cms": "^3.0.0-beta.10",
+    "craftcms/cms": "^3.0.0-beta.20",
     "phenx/php-font-lib": "^0.5.0"
   },
   "autoload": {
@@ -32,6 +32,7 @@
   "extra": {
     "handle": "dolphiq-iconpicker",
     "name": "Iconpicker",
+    "description": "Craft Iconpicker plugin provides a new field type that offers users an easy way to pick an icon from a .woff or .ttf font file.",
     "schemaVersion": "1.0.0",
     "developer": "Dolphiq",
     "developerUrl": "https://dolphiq.nl/",
