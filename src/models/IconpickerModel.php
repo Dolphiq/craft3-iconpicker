@@ -20,10 +20,8 @@ namespace plugins\dolphiq\iconpicker\models;
 use Craft;
 use craft\base\Model;
 
-
-
-class IconpickerModel extends Model{
-
+class IconpickerModel extends Model
+{
     public $icon;
     public $iconFont;
 
@@ -34,24 +32,28 @@ class IconpickerModel extends Model{
         ];
     }
 
-    public function getIconChar(){
+    public function getIconChar()
+    {
         return '&#'.$this->icon.';';
     }
 
-    public function getIconCharHex(){
+    public function getIconCharHex()
+    {
         return '&#x'.$this->getIconHex().';';
     }
 
-    public function getIconHex(){
+    public function getIconHex()
+    {
         return dechex($this->icon);
     }
 
-    public function getIconSpan(){
+    public function getIconSpan()
+    {
         return '<span class="'.$this->getIconClass().'">'.$this->getIconCharHex().'</span>';
     }
 
-    public function getIconClass(){
+    public function getIconClass()
+    {
         return 'dq-icon-'.$this->iconFont;
     }
-
 }

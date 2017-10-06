@@ -20,7 +20,6 @@ use plugins\dolphiq\iconpicker\models\IconpickerModel;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
-
 class Iconpicker extends Field implements PreviewableFieldInterface
 {
     // Static
@@ -29,22 +28,22 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     /**
      * @var string The directory where the fonts are
      */
-    CONST FONT_DIR = '@vendor/dolphiq/iconpicker/src/resources-shared/fonts/';
+    const FONT_DIR = '@vendor/dolphiq/iconpicker/src/resources-shared/fonts/';
 
     /**
      * @var array All extentions that are allowed to be imported as a font
      */
-    CONST FONT_EXT = ['*.woff', '*.ttf'];
+    const FONT_EXT = ['*.woff', '*.ttf'];
 
     /**
      * @var string Icon class
      */
-    CONST ICON_CLASS = 'dq-icon-';
+    const ICON_CLASS = 'dq-icon-';
 
     /**
      * @var string Pattern to format a safe file name
      */
-    CONST SAFE_NAME_PATTERN = '/[^A-Za-z0-9_\-]/';
+    const SAFE_NAME_PATTERN = '/[^A-Za-z0-9_\-]/';
 
     /**
      * @inheritdoc
@@ -167,13 +166,14 @@ class Iconpicker extends Field implements PreviewableFieldInterface
      * @return array
      */
 
-    private function getFonts(){
-        if(empty($this->fonts)) {
+    private function getFonts()
+    {
+        if (empty($this->fonts)) {
             $files = FileHelper::findFiles(Craft::getAlias(self::FONT_DIR), ['only' => self::FONT_EXT]);
             $filenames = [];
             $fonts = [];
 
-            foreach ($files as $file){
+            foreach ($files as $file) {
                 $pathInfo = pathinfo($file);
                 $safename = in_array($pathInfo['filename'], $filenames) ? $pathInfo['basename'] : $pathInfo['filename'];
                 $safename = $this->safeName($safename);
@@ -198,9 +198,10 @@ class Iconpicker extends Field implements PreviewableFieldInterface
      * Returns a options list for the settings dropdown when defining a field
      * @return array
      */
-    private function getFontOptions(){
+    private function getFontOptions()
+    {
         $f = $this->getFonts();
-        if(!empty($f)){
+        if (!empty($f)) {
             return ArrayHelper::map($f, 'safename', 'basename');
         }
     }
@@ -210,11 +211,11 @@ class Iconpicker extends Field implements PreviewableFieldInterface
      *
      * @return array|null
      */
-    private function getIcons(){
-
-        if(!empty($this->iconFont)) {
+    private function getIcons()
+    {
+        if (!empty($this->iconFont)) {
             $fonts = $this->getFonts();
-            if(!empty($fonts) && isset($fonts[$this->iconFont])) {
+            if (!empty($fonts) && isset($fonts[$this->iconFont])) {
                 $font = Font::load($fonts[$this->iconFont]['path']);
                 $font->parse();
 
@@ -231,10 +232,11 @@ class Iconpicker extends Field implements PreviewableFieldInterface
      * @param $font \FontLib\TrueType\File|null
      * @return array|null
      */
-    private function getUnicodeList($font){
-        if(!empty($font)){
+    private function getUnicodeList($font)
+    {
+        if (!empty($font)) {
             $unicodes = $font->getUnicodeCharMap();
-            if(!empty($unicodes)){
+            if (!empty($unicodes)) {
                 return array_keys($unicodes);
             }
         }
@@ -246,21 +248,20 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     /**
      * Generate a css file that creates font families for each font file in the font directory
      */
-    public function getFontCss(){
-
+    public function getFontCss()
+    {
         $sharedAsset = new sharedAsset();
         $scss = "";
 
-        foreach ($this->getFonts() as $safeName => $pathInfo){
+        foreach ($this->getFonts() as $safeName => $pathInfo) {
             $fontFile = $pathInfo['path'];
             $font = Font::load($fontFile);
             $font->parse();
 
-            if(!empty($font)) {
+            if (!empty($font)) {
                 $iconFontName = $safeName;
 
                 if (!empty($iconFontName)) {
-
                     $scss .= "
 @font-face {
     font-family: 'dq-iconpicker-".$iconFontName."';
@@ -288,9 +289,6 @@ class Iconpicker extends Field implements PreviewableFieldInterface
   -moz-osx-font-smoothing: grayscale;
 
 }'."\n\n";
-
-
-
                 }
             }
         }
@@ -299,17 +297,16 @@ class Iconpicker extends Field implements PreviewableFieldInterface
 
         // Register the assetbundle that loads the generated css
         Craft::$app->view->registerAssetBundle(sharedAsset::className());
-
     }
 
     // Get the fontname of the currently selected font.
-    public function getIconFontName(){
-
+    public function getIconFontName()
+    {
         return $this->iconFont;
-
     }
 
-    private function safeName($filename){
+    private function safeName($filename)
+    {
         $name = preg_replace(self::SAFE_NAME_PATTERN, '-', $filename);
         return $name;
     }
