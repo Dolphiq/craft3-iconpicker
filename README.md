@@ -3,6 +3,14 @@
 Craft plugin that provides a new field type that offers users an easy way to pick an icon from a .woff or .ttf font file.
 You can easily use ionicons or font awesome icons
 
+**Note**: This plugin may become a paid add-on when the Craft Plugin store becomes available.
+
+## Requirements
+* Craft 3.0 (beta 20)+
+* PHP 7.0+
+* PhenX PHP Font Lib
+* One or more .ttf or .woff files
+
 ## Example
 
 ### Example of the field usage in the template for a cms user
@@ -80,5 +88,6 @@ Display an icon with a custom class:
 
 
 ### Contributors & Developers
-Lucas Weijers - info@dolphiq.nl
-Brought to you by [Dolphiq](Https://dolphiq.nl)
+Lucas Weijers - Original developer
+Johan Zandstra - Minor changes
+Brought to you by [Dolphiq](Https://dolphiq.nl) info@dolphiq.nl
