@@ -86,6 +86,9 @@ Display an icon with a custom class:
             {{ entry.fieldName.iconSpan|raw }}
        {% endif %}
 
+## Iconpicker Roadmap
+- Select and upload the fonts in the UI
+- Enable (name) search while picking an icon
 
 ### Contributors & Developers
 Lucas Weijers - Original developer

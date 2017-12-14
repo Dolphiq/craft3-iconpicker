@@ -293,7 +293,7 @@ class Iconpicker extends Field implements PreviewableFieldInterface
             }
         }
 
-        file_put_contents(Craft::getAlias($sharedAsset->sourcePath . '/css/fonts.scss'), $scss);
+        file_put_contents(Craft::getAlias($sharedAsset->sourcePath . '/css/fonts.css'), $scss);
 
         // Register the assetbundle that loads the generated css
         Craft::$app->view->registerAssetBundle(sharedAsset::className());

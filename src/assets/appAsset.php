@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lucasweijers
- * Date: 16-08-17
- * Time: 14:58
+ * Created by Dolphiq
+ * Lucas Weijers
+ * Date: 2017-10-16
+ *
  *
  * This asset will publish all css and js needed voor the backend application
  */
