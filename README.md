@@ -46,6 +46,30 @@ You can easily use ionicons or font awesome icons
 
 ## Usage sample in twig template
 
+### Quick example code
+        {% do view.registerAssetBundle("plugins\\dolphiq\\iconpicker\\assets\\sharedAsset") %}
+        <html style="padding: 0; margin: 0;">
+        <head>
+            <title></title>
+
+            {{ head() }}
+
+        </head>
+
+        <body>
+
+        {{ beginBody() }}
+
+        {% if entry.iconPickerField.icon %}
+            Hex: {{ entry.iconPickerField.icon }}<br>
+            {{ entry.iconPickerField.iconSpan|raw }}
+        {% endif %}
+
+        {{ endBody() }}
+
+        </body>
+        </html>
+
 Display an icon with a custom class:
 
     <span class='{{ entry.iconClass }} myCustomClass'>{{ entry.iconChar }}</span>
@@ -75,17 +99,16 @@ Display an icon with a custom class:
 6. Get the icon font class 
        
        {{ entry.fieldName.iconClass }}
-         
-7. Get the icon name 
        
-       {{ entry.fieldName.iconName }}
-       
-8. Conditional example of showing icon only when it is set
+7. Conditional example of showing icon only when it is set
 
        {% if entry.fieldName.icon %}
             {{ entry.fieldName.iconSpan|raw }}
        {% endif %}
 
+## Iconpicker Roadmap
+- Select and upload the fonts in the UI
+- Enable (name) search while picking an icon
 
 ### Contributors & Developers
 Lucas Weijers - Original developer

@@ -1,4 +1,10 @@
 # Changelog
+## 1.0.4 - 2017-12-14
+
+### Changed
+- Changed the plugin icon
+- Made compatible with Craft RC2
+- Use css for the font-asset style set and not scss (sass) to support more environments
 
 ## 1.0.3 - 2017-10-06
 

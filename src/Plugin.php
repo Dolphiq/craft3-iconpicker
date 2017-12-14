@@ -1,11 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lucasweijers
- * Date: 19-05-17
- * Time: 15:23
+ * Craft3 Forms plugin
+ *
+ * @author    Lucas Weijers
+ * @copyright Copyright (c) 2017 Dolphiq
+ * @link      https://dolphiq.nl/
  */
-
 
 namespace plugins\dolphiq\iconpicker;
 
