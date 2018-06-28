@@ -13,7 +13,7 @@
 
 $field->getFontCss();
 
-if (count($icons) > 0) {
+if (is_array($icons) && count($icons) > 0) {
     ?>
 
 
