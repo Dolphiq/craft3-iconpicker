@@ -59,6 +59,10 @@ if (count($icons) > 0) {
     <div class="resizehandle"></div>
   </div>
 
+  <script>
+    new Craft.IconpickerSelectInput({});
+  </script>
+
 <?php
 } else {
                   ?>
