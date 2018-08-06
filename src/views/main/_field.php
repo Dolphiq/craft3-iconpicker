@@ -13,7 +13,7 @@
 
 $field->getFontCss();
 
-$id = 'iconpicker-modaltoggle-'.uniqid();
+$id = 'iconpicker-modaltoggle-' . uniqid();
 
 if (count($icons) > 0) {
     ?>
@@ -22,14 +22,14 @@ if (count($icons) > 0) {
     <input type="hidden" name="<?= $name; ?>[icon]" class="iconpicker-icon" value="<?= $value->icon; ?>">
     <input type="hidden" name="<?= $name; ?>[iconFont]" value="<?= $field->getIconFontName(); ?>">
 
-    <p class="iconpicker-msg <?= empty($value->icon) ? 'dolphiq-iconpicker--empty' : ''?>">
+    <p class="iconpicker-msg <?= empty($value->icon) ? 'dolphiq-iconpicker--empty' : '' ?>">
     <span class="dolphiq-iconpicker <?= $field::ICON_CLASS; ?><?= $field->getIconFontName(); ?>">
-      <span class="iconpicker-preview">
-        <?= !empty($value->icon) ? '&#x'.$value->iconHex : ''; ?>
-      </span>
+        <span class="iconpicker-preview">
+            <?= !empty($value->icon) ? '&#x' . $value->iconHex : ''; ?>
+        </span>
     </span>
-        <span class="iconpicker-code">
-        <?= !empty($value->icon) ? '('.$value->iconHex.')' : ''; ?>
+    <span class="iconpicker-code">
+        <?= !empty($value->icon) ? '(' . $value->iconHex . ')' : ''; ?>
     </span>
     </p>
     <button class="iconpickerField_modaltoggle btn <?= $id ?>" type="button">Pick an icon</button>
@@ -68,6 +68,7 @@ if (count($icons) > 0) {
     <?php
 } else {
     ?>
-    <p>There is no font uploaded to the font folder of this plugin, no font selected in the field settings, or the font contains no icons</p>
+    <p>There is no font uploaded to the font folder of this plugin, no font selected in the field settings, or the font
+        contains no icons</p>
     <?php
 } ?>
