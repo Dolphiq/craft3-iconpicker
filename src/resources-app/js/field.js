@@ -3,9 +3,9 @@
  */
 Craft.IconpickerSelectInput = Craft.BaseElementSelectInput.extend({
   iconpickerField_modals: [],
-  init: function () {
+  init: function (toggleId) {
     var self = this;
-    $('.iconpickerField_modaltoggle').on('click', function () {
+    $(toggleId).on('click', function () {
       var p = $(this).parent();
       if (p.data('modal-id') !== undefined) {
         self.iconpickerField_modals[p.data('modal-id')].show();
