@@ -31,6 +31,7 @@ if (count($icons) > 0) {
     </span>
   </p>
   <button class="iconpickerField_modaltoggle btn" type="button">Pick an icon</button>
+  <button class="iconpickerField_removeicon btn <?= empty($value->icon) ? 'dolphiq-iconpicker--empty' : ''?>" type="button">Remove icon</button>
 
   <div class="modal iconpickerField_modal elementselectormodal" style="display: none" id="<?= $name; ?>_modal">
     <div class="body">

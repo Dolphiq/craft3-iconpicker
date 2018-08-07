@@ -65,6 +65,7 @@ Craft.IconpickerModal = Garnish.Modal.extend(
     selectIcon: function(){
       $(this.iconField).find('.iconpicker-icon').val(this.icon);
       $(this.iconField).find('.iconpicker-msg').removeClass('dolphiq-iconpicker--empty');
+      $(this.iconField).find('.iconpickerField_removeicon').removeClass('dolphiq-iconpicker--empty');
       $(this.iconField).find('.iconpicker-msg .iconpicker-preview').html('&#x'+(parseInt(this.icon).toString(16))+';');
       $(this.iconField).find('.iconpicker-msg .iconpicker-code').html((parseInt(this.icon).toString(16)));
       this.hide();
