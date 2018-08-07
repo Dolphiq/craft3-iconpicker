@@ -61,9 +61,9 @@ if (count($icons) > 0) {
         <div class="resizehandle"></div>
     </div>
 
-    <script>
-        new Craft.IconpickerSelectInput('.<?= $id ?>');
-    </script>
+    <?php
+        Craft::$app->view->registerJs("new Craft.IconpickerSelectInput('.". $id ."')");
+    ?>
 
     <?php
 } else {
