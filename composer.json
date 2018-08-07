@@ -1,7 +1,7 @@
 {
   "name": "dolphiq/iconpicker",
   "description": "Craft Iconpicker field type that offers end-users an easy way to pick an icon/symbol from a .woff or .ttf font file.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "keywords": [
     "craft",
     "cms",

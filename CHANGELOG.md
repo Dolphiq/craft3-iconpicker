@@ -1,4 +1,11 @@
 # Changelog
+
+## 1.0.5 - 2018-08-07
+
+### Changed
+- Added a 'remove icon' button, so you can remove the selected icon
+- Fixed a bug that prevented the iconpicker modal from appearing when using the iconpicker field in a matrix field
+
 ## 1.0.4 - 2017-12-14
 
 ### Changed
