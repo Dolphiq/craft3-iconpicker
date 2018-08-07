@@ -5,7 +5,7 @@ $(function() {
 
   var iconpickerField_modals = [];
 
-  $('.iconpickerField_modaltoggle').on('click', function(){
+  $(document).on('click', '.iconpickerField_modaltoggle', function(){
     var p = $(this).parent();
     if(p.data('modal-id') !== undefined){
       iconpickerField_modals[p.data('modal-id')].show();
@@ -18,7 +18,7 @@ $(function() {
   });
 
   // Close visible modal when clicking on close button
-  $('document').on('click', '.locationField_modal_close', function(){
+  $(document).on('click', '.locationField_modal_close', function(){
     Garnish.Modal.visibleModal.hide();
   });
 });
