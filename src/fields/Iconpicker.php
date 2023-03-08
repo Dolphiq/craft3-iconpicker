@@ -15,7 +15,6 @@ use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\base\PreviewableFieldInterface;
 use craft\helpers\FileHelper;
-use craft\helpers\Json;
 use FontLib\Font;
 use FontLib\TrueType\File;
 use plugins\dolphiq\iconpicker\assets\appAsset;
@@ -100,7 +99,7 @@ class Iconpicker extends Field implements PreviewableFieldInterface
      */
     public function getSettingsHtml(): ?string
     {
-        return Craft::$app->getView()->renderTemplate('dolphiq-iconpicker/fieldSettings', [
+        return Craft::$app->getView()->renderTemplate('dolphiq-iconpicker/settings', [
             'field' => $this,
             'fonts' => $this->getFontOptions(),
         ]);
@@ -111,15 +110,20 @@ class Iconpicker extends Field implements PreviewableFieldInterface
      */
     public function getInputHtml($value, ElementInterface $element = null): string
     {
+        // Load the sharedbundle
+        $this->getFontCss();
+
         // Load the assetbundle
         Craft::$app->view->registerAssetBundle(appAsset::class);
 
         // Display the field
-        return Craft::$app->getView()->render('@vendor/dolphiq/iconpicker/src/views/main/_field', [
+        return Craft::$app->getView()->renderTemplate('dolphiq-iconpicker/input', [
             'name' => $this->handle,
             'value' => $value,
             'field' => $this,
             'icons' => $this->getIcons(),
+            'iconFontName' => $this->getIconFontName(),
+            'iconClass' => self::ICON_CLASS.$this->getIconFontName(),
         ]);
     }
 
@@ -282,39 +286,28 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     /**
      * Load a font and get all unicode characters available in that font.
      *
-     * @return array|null
+     * @return array
      * @throws \FontLib\Exception\FontNotFoundException
      */
-    private function getIcons(): ?array
+    private function getIcons(): array
     {
+        $returnValue = [];
+
         if (!empty($this->iconFont)) {
             $fonts = $this->getFonts();
             if (!empty($fonts) && isset($fonts[$this->iconFont])) {
                 $font = Font::load($fonts[$this->iconFont]['path']);
                 $font->parse();
-
-                return $font->getUnicodeCharMap();
+                $icons = $font->getUnicodeCharMap();
+                if ($icons !== null) {
+                    foreach ($icons as $dec => $id) {
+                        $returnValue[$dec] = dechex($dec);
+                    }
+                }
             }
         }
 
-        return null;
-    }
-
-    /**
-     * @param $font \FontLib\TrueType\File|null
-     *
-     * @return array|null
-     */
-    private function getUnicodeList(?File $font): ?array
-    {
-        if (!empty($font)) {
-            $unicodes = $font->getUnicodeCharMap();
-            if (!empty($unicodes)) {
-                return array_keys($unicodes);
-            }
-        }
-
-        return null;
+        return $returnValue;
     }
 
     private function safeName($filename): array|string|null

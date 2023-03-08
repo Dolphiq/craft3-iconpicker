@@ -4,6 +4,7 @@
 
 ### Changed
 - Craft 4 compatible.
+- Migrate view to Twig template for field input.
 
 ### Fixed
 - All issues fixed in multi site environments.
