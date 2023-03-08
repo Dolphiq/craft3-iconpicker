@@ -5,8 +5,9 @@
  * Date: 2017-10-16
  *
  *
- * This asset will publish all css and js needed voor the backend application
+ * This asset will publish all css and js needed for the backend application
  */
+
 namespace plugins\dolphiq\iconpicker\assets;
 
 use craft\web\AssetBundle;

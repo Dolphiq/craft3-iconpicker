@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Craft 4 compatible.
+- Migrate view to Twig template for field input.
+
+### Fixed
+- Issues fixed in multi site environments.
+
 ## 1.0.5 - 2018-08-07
 
 ### Changed
