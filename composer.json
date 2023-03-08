@@ -1,7 +1,7 @@
 {
   "name": "dolphiq/iconpicker",
   "description": "Craft Iconpicker field type that offers end-users an easy way to pick an icon/symbol from a .woff or .ttf font file.",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "keywords": [
     "craft",
     "cms",
@@ -9,14 +9,13 @@
     "craft-plugin",
     "icon",
     "symbol",
-    "iconpicker",
-    "craft3"
+    "iconpicker"
   ],
   "type": "craft-plugin",
   "license": "MIT",
   "require": {
-    "craftcms/cms": "^3.0.0-RC2",
-    "phenx/php-font-lib": "^0.5.0"
+    "craftcms/cms": "^4.0.0",
+    "phenx/php-font-lib": "^0.5.1"
   },
   "autoload": {
     "psr-4": {
@@ -30,16 +29,13 @@
       "homepage": "https://dolphiq.nl/"
     }
   ],
+  "support": {
+    "source": "https://github.com/Dolphiq/craft3-iconpicker",
+    "docs": "https://github.com/Dolphiq/craft3-iconpicker/blob/master/README.md",
+    "issues": "https://github.com/Dolphiq/craft3-iconpicker/issues"
+  },
   "extra": {
     "handle": "dolphiq-iconpicker",
-    "name": "Iconpicker",
-    "description": "Craft Iconpicker field type that offers end-users an easy way to pick an icon/symbol from a .woff or .ttf font file.",
-    "schemaVersion": "1.0.0",
-    "developer": "Dolphiq",
-    "developerUrl": "https://dolphiq.nl/",
-    "hasCpSettings": false,
-    "hasCpSection": false,
-    "documentationUrl": "https://github.com/Dolphiq/craft3-iconpicker/blob/master/README.md",
-    "changelogUrl": "https://raw.githubusercontent.com/Dolphiq/craft3-iconpicker/master/CHANGELOG.md"
+    "name": "Iconpicker"
   }
 }

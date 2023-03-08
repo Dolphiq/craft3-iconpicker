@@ -7,6 +7,7 @@
  *
  * This field will offer the user a choice between various icons in the selected font, and generates the needed css
  */
+
 namespace plugins\dolphiq\iconpicker\fields;
 
 use Craft;
@@ -14,7 +15,10 @@ use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\base\PreviewableFieldInterface;
 use craft\helpers\FileHelper;
+use craft\helpers\Json;
 use FontLib\Font;
+use FontLib\TrueType\File;
+use plugins\dolphiq\iconpicker\assets\appAsset;
 use plugins\dolphiq\iconpicker\assets\sharedAsset;
 use plugins\dolphiq\iconpicker\models\IconpickerModel;
 use yii\db\Schema;
@@ -31,7 +35,7 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     const FONT_DIR = '@vendor/dolphiq/iconpicker/src/resources-shared/fonts/';
 
     /**
-     * @var array All extentions that are allowed to be imported as a font
+     * @var array All extensions that are allowed to be imported as a font
      */
     const FONT_EXT = ['*.woff', '*.ttf'];
 
@@ -60,29 +64,22 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     /**
      * @var string|null The input’s placeholder text
      */
-    public $placeholder;
-
-    /**
-     * @var int|null The maximum number of characters allowed in the field
-     */
-    public $charLimit;
-
+    public ?string $placeholder = null;
 
     /**
      * @var string The type of database column the field should have in the content table
      */
-    public $columnType = Schema::TYPE_STRING;
-
+    public string $columnType = Schema::TYPE_STRING;
 
     /**
      * @var string The current selected iconfont to use
      */
-    public $iconFont = "";
+    public string $iconFont = "";
 
     /**
-     * @var array A list with the avaiable fonts
+     * @var array A list with the available fonts
      */
-    private $fonts = [];
+    private array $fonts = [];
 
 
     // Public Methods
@@ -91,15 +88,7 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     /**
      * @inheritdoc
      */
-    public function getContentColumnType(): string
-    {
-        return $this->columnType;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
+    public function rules(): array
     {
         $rules = parent::rules();
         $rules[] = [['iconFont'], 'safe'];
@@ -109,11 +98,11 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml()
+    public function getSettingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate('dolphiq-iconpicker/fieldSettings', [
             'field' => $this,
-            'fonts' => $this->getFontOptions()
+            'fonts' => $this->getFontOptions(),
         ]);
     }
 
@@ -123,7 +112,7 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     public function getInputHtml($value, ElementInterface $element = null): string
     {
         // Load the assetbundle
-        Craft::$app->view->registerAssetBundle(\plugins\dolphiq\iconpicker\assets\appAsset::class);
+        Craft::$app->view->registerAssetBundle(appAsset::class);
 
         // Display the field
         return Craft::$app->getView()->render('@vendor/dolphiq/iconpicker/src/views/main/_field', [
@@ -137,8 +126,12 @@ class Iconpicker extends Field implements PreviewableFieldInterface
     /**
      * @inheritdoc
      */
-    public function normalizeValue($value, ElementInterface $element = null)
+    public function normalizeValue(mixed $value, ElementInterface $element = null): IconpickerModel
     {
+        if ($value instanceof IconpickerModel) {
+            return $value;
+        }
+
         $model = new IconpickerModel();
 
         /**
@@ -158,97 +151,21 @@ class Iconpicker extends Field implements PreviewableFieldInterface
         return $model;
     }
 
-
-    /**
-     * Get all the fonts that are residing in the fonts directory and have the right extention.
-     * Index them by path as key and pathinfo array as value
-     *
-     * @return array
-     */
-
-    private function getFonts()
+    public function serializeValue(mixed $value, ?ElementInterface $element = null): mixed
     {
-        if (empty($this->fonts)) {
-            $files = FileHelper::findFiles(Craft::getAlias(self::FONT_DIR), ['only' => self::FONT_EXT]);
-            $filenames = [];
-            $fonts = [];
+        $value = parent::serializeValue($value, $element);
 
-            foreach ($files as $file) {
-                $pathInfo = pathinfo($file);
-                $safename = in_array($pathInfo['filename'], $filenames) ? $pathInfo['basename'] : $pathInfo['filename'];
-                $safename = $this->safeName($safename);
-                $fonts[$safename] = ArrayHelper::merge(
-                    [
-                        'path' => $file,
-                        'safename' => $safename
-                    ],
-                    $pathInfo
-                );
-
-                $filenames[] = $pathInfo['filename'];
-            }
-
-            $this->fonts = $fonts;
-        }
-
-        return $this->fonts;
+        return $value;
     }
-
-    /**
-     * Returns a options list for the settings dropdown when defining a field
-     * @return array
-     */
-    private function getFontOptions()
-    {
-        $f = $this->getFonts();
-        if (!empty($f)) {
-            return ArrayHelper::map($f, 'safename', 'basename');
-        }
-    }
-
-    /**
-     * Load a font and get all unicode characters available in that font.
-     *
-     * @return array|null
-     */
-    private function getIcons()
-    {
-        if (!empty($this->iconFont)) {
-            $fonts = $this->getFonts();
-            if (!empty($fonts) && isset($fonts[$this->iconFont])) {
-                $font = Font::load($fonts[$this->iconFont]['path']);
-                $font->parse();
-
-                if ($font !== null) {
-                    return $font->getUnicodeCharMap();
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @param $font \FontLib\TrueType\File|null
-     * @return array|null
-     */
-    private function getUnicodeList($font)
-    {
-        if (!empty($font)) {
-            $unicodes = $font->getUnicodeCharMap();
-            if (!empty($unicodes)) {
-                return array_keys($unicodes);
-            }
-        }
-
-        return null;
-    }
-
 
     /**
      * Generate a css file that creates font families for each font file in the font directory
+     *
+     * @return void
+     * @throws \FontLib\Exception\FontNotFoundException
+     * @throws \yii\base\InvalidConfigException
      */
-    public function getFontCss()
+    public function getFontCss(): void
     {
         $sharedAsset = new sharedAsset();
         $scss = "";
@@ -264,16 +181,16 @@ class Iconpicker extends Field implements PreviewableFieldInterface
                 if (!empty($iconFontName)) {
                     $scss .= "
 @font-face {
-    font-family: 'dq-iconpicker-".$iconFontName."';
-    src: url('../fonts/".$pathInfo['basename']."');
+    font-family: 'dq-iconpicker-" . $iconFontName . "';
+    src: url('../fonts/" . $pathInfo['basename'] . "');
     font-weight: 100;
     font-style: normal;
 }\n\n";
 
                     $scss .= '
-[class*="dq-icon-'.$iconFontName.'"] {
+[class*="dq-icon-' . $iconFontName . '"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: dq-iconpicker-'.$iconFontName.' !important;
+  font-family: dq-iconpicker-' . $iconFontName . ' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -288,7 +205,7 @@ class Iconpicker extends Field implements PreviewableFieldInterface
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-}'."\n\n";
+}' . "\n\n";
                 }
             }
         }
@@ -296,18 +213,112 @@ class Iconpicker extends Field implements PreviewableFieldInterface
         file_put_contents(Craft::getAlias($sharedAsset->sourcePath . '/css/fonts.css'), $scss);
 
         // Register the assetbundle that loads the generated css
-        Craft::$app->view->registerAssetBundle(sharedAsset::className());
+        Craft::$app->view->registerAssetBundle(sharedAsset::class);
     }
 
-    // Get the fontname of the currently selected font.
-    public function getIconFontName()
+    /**
+     * Get the fontname of the currently selected font.
+     *
+     * @return string
+     */
+    public function getIconFontName(): string
     {
         return $this->iconFont;
     }
 
-    private function safeName($filename)
+
+    // Privtae Methods
+    // =========================================================================
+
+    /**
+     * Get all the fonts that are residing in the fonts directory and have the right extension.
+     * Index them by path as key and pathinfo array as value
+     *
+     * @return array
+     */
+    private function getFonts(): array
     {
-        $name = preg_replace(self::SAFE_NAME_PATTERN, '-', $filename);
-        return $name;
+        if (empty($this->fonts)) {
+            $files = FileHelper::findFiles(Craft::getAlias(self::FONT_DIR), ['only' => self::FONT_EXT]);
+            $filenames = [];
+            $fonts = [];
+
+            foreach ($files as $file) {
+                $pathInfo = pathinfo($file);
+                $safename = in_array($pathInfo['filename'], $filenames) ? $pathInfo['basename'] : $pathInfo['filename'];
+                $safename = $this->safeName($safename);
+                $fonts[$safename] = ArrayHelper::merge(
+                    [
+                        'path' => $file,
+                        'safename' => $safename,
+                    ],
+                    $pathInfo
+                );
+
+                $filenames[] = $pathInfo['filename'];
+            }
+
+            $this->fonts = $fonts;
+        }
+
+        return $this->fonts;
+    }
+
+    /**
+     * Returns an options list for the settings dropdown when defining a field
+     *
+     * @return array
+     */
+    private function getFontOptions(): array
+    {
+        $f = $this->getFonts();
+        if (!empty($f)) {
+            return ArrayHelper::map($f, 'safename', 'basename');
+        }
+
+        return [];
+    }
+
+    /**
+     * Load a font and get all unicode characters available in that font.
+     *
+     * @return array|null
+     * @throws \FontLib\Exception\FontNotFoundException
+     */
+    private function getIcons(): ?array
+    {
+        if (!empty($this->iconFont)) {
+            $fonts = $this->getFonts();
+            if (!empty($fonts) && isset($fonts[$this->iconFont])) {
+                $font = Font::load($fonts[$this->iconFont]['path']);
+                $font->parse();
+
+                return $font->getUnicodeCharMap();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $font \FontLib\TrueType\File|null
+     *
+     * @return array|null
+     */
+    private function getUnicodeList(?File $font): ?array
+    {
+        if (!empty($font)) {
+            $unicodes = $font->getUnicodeCharMap();
+            if (!empty($unicodes)) {
+                return array_keys($unicodes);
+            }
+        }
+
+        return null;
+    }
+
+    private function safeName($filename): array|string|null
+    {
+        return preg_replace(self::SAFE_NAME_PATTERN, '-', $filename);
     }
 }

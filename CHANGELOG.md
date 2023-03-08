@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Craft 4 compatible.
+
+### Fixed
+- All issues fixed in multi site environments.
+
 ## 1.0.5 - 2018-08-07
 
 ### Changed
