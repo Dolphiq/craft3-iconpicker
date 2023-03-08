@@ -155,13 +155,6 @@ class Iconpicker extends Field implements PreviewableFieldInterface
         return $model;
     }
 
-    public function serializeValue(mixed $value, ?ElementInterface $element = null): mixed
-    {
-        $value = parent::serializeValue($value, $element);
-
-        return $value;
-    }
-
     /**
      * Generate a css file that creates font families for each font file in the font directory
      *
