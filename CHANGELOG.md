@@ -7,7 +7,7 @@
 - Migrate view to Twig template for field input.
 
 ### Fixed
-- All issues fixed in multi site environments.
+- Issues fixed in multi site environments.
 
 ## 1.0.5 - 2018-08-07
 

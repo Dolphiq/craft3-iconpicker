@@ -16,7 +16,6 @@ use craft\base\Field;
 use craft\base\PreviewableFieldInterface;
 use craft\helpers\FileHelper;
 use FontLib\Font;
-use FontLib\TrueType\File;
 use plugins\dolphiq\iconpicker\assets\appAsset;
 use plugins\dolphiq\iconpicker\assets\sharedAsset;
 use plugins\dolphiq\iconpicker\models\IconpickerModel;
