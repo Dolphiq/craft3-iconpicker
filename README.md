@@ -1,5 +1,7 @@
 # Iconpicker plugin for Craft CMS 3.x
 
+## Currently the project is *DISCONTINUED*. However, feel free to fork it and continue its development!
+
 Craft plugin that provides a new field type that offers users an easy way to pick an icon from a .woff or .ttf font file.
 You can easily use ionicons or font awesome icons
 
