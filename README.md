@@ -1,15 +1,13 @@
-# Iconpicker plugin for Craft CMS 3.x
+# Iconpicker plugin for Craft CMS 
 
 ## Currently the project is *DISCONTINUED*. However, feel free to fork it and continue its development!
 
 Craft plugin that provides a new field type that offers users an easy way to pick an icon from a .woff or .ttf font file.
 You can easily use ionicons or font awesome icons
 
-**Note**: This plugin may become a paid add-on when the Craft Plugin store becomes available.
-
 ## Requirements
-* Craft 3.0 (beta 20)+
-* PHP 7.0+
+* Craft 4.0
+* PHP 8.0+
 * PhenX PHP Font Lib
 * One or more .ttf or .woff files
 

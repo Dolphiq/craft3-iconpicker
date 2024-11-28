@@ -1,6 +1,6 @@
 <?php
 /**
- * Craft3 Forms plugin
+ * Craft plugin
  *
  * @author    Lucas Weijers
  * @copyright Copyright (c) 2017 Dolphiq
@@ -9,12 +9,10 @@
 
 namespace plugins\dolphiq\iconpicker;
 
-use Craft;
 use plugins\dolphiq\iconpicker\fields\Iconpicker;
 use craft\events\RegisterComponentTypesEvent;
 use craft\services\Fields;
 use yii\base\Event;
-use yii\web\View;
 
 class Plugin extends \craft\base\Plugin
 {

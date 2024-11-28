@@ -1,0 +1,42 @@
+{% if icons|length %}
+<input type="hidden" name="{{ name }}[icon]" class="iconpicker-icon" value="{{ value.icon }}">
+<input type="hidden" name="{{ name }}[iconFont]" value="{{ iconFontName }}">
+
+<p class="iconpicker-msg {{ value.icon != '' ?: 'dolphiq-iconpicker--empty' }}">
+    <span class="dolphiq-iconpicker {{ iconClass }}">
+      <span class="iconpicker-preview">
+          {% if value.icon != '' %}&#x{{ value.iconHex() }}{% endif %}
+      </span>
+    </span>
+    <span class="iconpicker-code">
+          {% if value.icon != '' %}({{ value.iconHex() }}){% endif %}
+    </span>
+</p>
+
+<button class="iconpickerField_modaltoggle btn" type="button">Pick an icon</button>
+<button class="iconpickerField_removeicon btn {{ value.icon != '' ?: 'dolphiq-iconpicker--empty' }}" type="button">Remove icon</button>
+
+<div class="modal iconpickerField_modal elementselectormodal" style="display: none" id="{{ name }}_modal">
+    <div class="body">
+        <div class="content">
+            <div class="main">
+                <div class="dolphiq-iconpicker {{ iconClass }}">
+                    {% for icon, hex in icons %}
+                    <span data-val="{{ icon }}" class="{% if value.icon == icon %}iconpicker--selected{% endif %}" title="{{ hex }}">&#x{{ hex }}</span>';
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="iconpickerField_modal_preview"></div>
+        <div class="buttons right">
+            <div class="btn iconpickerField_modal_close" tabindex="0">{{ "Cancel"|t('app') }}</div>
+            <div class="btn disabled submit iconpickerField_modal_select">{{ "Select"|t('app') }}</div>
+        </div>
+    </div>
+    <div class="resizehandle"></div>
+</div>
+{% else %}
+<p>There is no font uploaded to the font folder of this plugin, no font selected in the field settings or the font contains no icons.</p>
+{%  endif %}

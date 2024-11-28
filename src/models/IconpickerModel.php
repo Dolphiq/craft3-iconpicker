@@ -17,43 +17,42 @@
 
 namespace plugins\dolphiq\iconpicker\models;
 
-use Craft;
 use craft\base\Model;
 
 class IconpickerModel extends Model
 {
-    public $icon;
-    public $iconFont;
+    public ?string $icon = null;
+    public ?string $iconFont = null;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['icon', 'iconFont'], 'safe'],
         ];
     }
 
-    public function getIconChar()
+    public function getIconChar(): string
     {
-        return '&#'.$this->icon.';';
+        return '&#' . $this->icon . ';';
     }
 
-    public function getIconCharHex()
+    public function getIconCharHex(): string
     {
-        return '&#x'.$this->getIconHex().';';
+        return '&#x' . $this->getIconHex() . ';';
     }
 
-    public function getIconHex()
+    public function getIconHex(): string
     {
         return dechex($this->icon);
     }
 
-    public function getIconSpan()
+    public function getIconSpan(): string
     {
-        return '<span class="'.$this->getIconClass().'">'.$this->getIconCharHex().'</span>';
+        return '<span class="' . $this->getIconClass() . '">' . $this->getIconCharHex() . '</span>';
     }
 
-    public function getIconClass()
+    public function getIconClass(): string
     {
-        return 'dq-icon-'.$this->iconFont;
+        return 'dq-icon-' . $this->iconFont;
     }
 }
